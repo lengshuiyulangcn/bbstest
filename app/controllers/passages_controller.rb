@@ -20,6 +20,16 @@ class PassagesController < ApplicationController
 		@passage.save
 		redirect_to passages_path
 	end
+	def edit
+		@passage=Passage.find(params[:id])
+	end
+	def update
+		@passage=Passage.find(params[:id])
+		@passage.title=params[:passage][:title]
+		@passage.content=params[:passage][:content]
+		@passage.save
+		redirect_to passage_path(params[:id])
+	end
 	def destroy
 		@passage=Passage.find(params[:id])
 		if current_user.username==@passage.author

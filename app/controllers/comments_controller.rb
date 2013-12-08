@@ -13,5 +13,9 @@ class CommentsController < ApplicationController
 		redirect_to passage_path(@comment.passage_id)
 	end
 	def destroy
+		@comment=Comment.find(params[:id])
+		passage_id=@comment.passage_id
+		Comment.delete(@comment)
+		redirect_to passage_path(passage_id)
 	end
 end

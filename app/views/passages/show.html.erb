@@ -5,11 +5,15 @@
 </p>
 <p>
   <b>正文</b><br>
-  <%= @passage.content %>
+  <%=raw RbbCode.new.convert(@passage.content) %>
 </p>
 <% @passage.comments.each do |comment| %>
-<p><%=comment.content %></p>
-<p><%=comment.author %></p>
+<p><%=raw RbbCode.new.convert(comment.content) %></p>
+<p><%=comment.author %>
+<%if current_user.username==comment.author%>
+ <%= link_to 'コメントを削除', comment_path(comment.id),:method => :delete, :confirm => '本当に本当に削除しますか?', :class => 'btn btn-mini btn-danger' %>
+ <%end%>
+</p>
 <% end %>
 <div >
 	<% if current_user.username==@passage.author %>
