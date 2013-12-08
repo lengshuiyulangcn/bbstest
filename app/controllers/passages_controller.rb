@@ -17,8 +17,12 @@ class PassagesController < ApplicationController
 		@passage.title=params[:passage][:title]
 		@passage.content=params[:passage][:content]
 		@passage.author=author
-		@passage.save
-		redirect_to passages_path
+		if @passage.save
+			redirect_to passages_path
+		else
+			@passages=Passage.all
+			render :action => "index"
+		end
 	end
 	def edit
 		@passage=Passage.find(params[:id])

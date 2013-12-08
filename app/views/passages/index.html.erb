@@ -35,9 +35,19 @@
 </table>
 <%= form_for @passage do |f| %>
 <p><%= f.label "タイトル" ,:class=> "label label-info"%><br />
+	  <% if @passage.errors.any? %>
+  <% @passage.errors[:title].each do |error|%>
+  <%=error %>
+  <%end%>
+  <%end%>
  <%= f.text_field :title %>
 </p>
 <p>
+<% if @passage.errors.any? %>
+  <% @passage.errors[:content].each do |error|%>
+  <%=error %>
+  <%end%>
+  <%end%>
   <div><%= f.label "内容" ,:class=> "label label-info"%><br />
   <%= f.text_area :content %></div>
 </p>

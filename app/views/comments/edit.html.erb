@@ -1,0 +1,7 @@
+<h1>コメント編集</h1>
+<%= form_for @comment ,:url => {:action => 'update'} do |f| %>
+<p><%= f.label "コメント内容",:class=> "label label-info"%><br />
+  <%= f.text_area :content %>
+</p>
+  <p><%= f.submit "コメント更新" %></p>
+<% end %>

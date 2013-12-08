@@ -7,12 +7,19 @@
   <b>正文</b><br>
   <%=raw RbbCode.new.convert(@passage.content) %>
 </p>
+<% flour=1 %>
 <% @passage.comments.each do |comment| %>
-<p><%=raw RbbCode.new.convert(comment.content) %></p>
+<p>
+<%=flour%>.
+<%=comment.created_at%>
+</p>
+<%flour+=1%>
 <p><%=comment.author %>
-<%if current_user.username==comment.author%>
+<%if current_user.username==comment.author %>
+<%= link_to '編集', edit_comment_path(comment.id), :class => 'btn btn-mini' %>
  <%= link_to 'コメントを削除', comment_path(comment.id),:method => :delete, :confirm => '本当に本当に削除しますか?', :class => 'btn btn-mini btn-danger' %>
  <%end%>
+<p><%=raw RbbCode.new.convert(comment.content) %></p>
 </p>
 <% end %>
 <div >
@@ -22,9 +29,15 @@
 </div>
 <%= form_for @comment do |f| %>
 <p><%= f.label "コメント:" ,:class=> "label label-info"%><br />
+  <% if @comment.errors.any?%>
+  <% @comment.errors[:content].each do |error|%>
+  <%=error %>
+  <%end%>
+  <%end%>
   <%= f.text_area :content %>
   <%=f.hidden_field :passage_id , :value=>@passage.id %>
 </p>
   <p><%= f.submit "提出",  :class => 'btn btn-mini' %></p>
 <% end %>
+
 <div><%=link_to "index", root_path%></div>

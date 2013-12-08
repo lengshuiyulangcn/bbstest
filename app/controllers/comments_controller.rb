@@ -8,7 +8,22 @@ class CommentsController < ApplicationController
 		@comment=Comment.new
 		@comment.content=params[:comment][:content]
 		@comment.passage_id=params[:comment][:passage_id]
-		@comment.author=current_user.username
+		@comment.author=current_user.username		
+		if @comment.save
+			redirect_to passage_path(@comment.passage_id)
+		else
+			@passage=Passage.find(params[:comment][:passage_id])
+			render  :template =>"passages/show"
+		end
+	end
+	def show
+	end
+	def edit
+		@comment=Comment.find(params[:id])
+	end
+	def update
+		@comment=Comment.find(params[:id])
+		@comment.content=params[:comment][:content]
 		@comment.save
 		redirect_to passage_path(@comment.passage_id)
 	end
