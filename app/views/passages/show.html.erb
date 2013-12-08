@@ -1,0 +1,26 @@
+<h2><%= @passage.title %></h2>
+<p>
+  <b>作者</b><br>
+  <%= @passage.author %>
+</p>
+<p>
+  <b>正文</b><br>
+  <%= @passage.content %>
+</p>
+<% @passage.comments.each do |comment| %>
+<p><%=comment.content %></p>
+<p><%=comment.author %></p>
+<% end %>
+<div >
+	<% if current_user.username==@passage.author %>
+<%=link_to "delete", passage_path(@passage.id),:method => :delete %>
+<% end %>
+</div>
+<%= form_for @comment do |f| %>
+<p><%= f.label "コメント:" ,:class=> "label label-info"%><br />
+  <%= f.text_area :content %>
+  <%=f.hidden_field :passage_id , :value=>@passage.id %>
+</p>
+  <p><%= f.submit "提出",  :class => 'btn btn-mini' %></p>
+<% end %>
+<div><%=link_to "index", root_path%></div>

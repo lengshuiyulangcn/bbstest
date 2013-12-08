@@ -1,0 +1,46 @@
+<h1>投稿一覧</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>作者</th>
+      <th>コメント数</th>
+      <th>最近コメントした人</th>
+      <th>作成時間</th>
+
+    </tr>
+  </thead>
+  <tbody>
+<% @passages.each do |p| %>
+<tr>
+<td><%= link_to p.title, passage_path(p.id) %></td>
+<td><%= p.author %></td>
+<td><%= p.comments.size %></td>
+<% if !p.comments.empty? %>
+<td><%= p.comments.find(:last).author %></td>
+<%else %>
+<td>__</td> 
+<%end%>
+<td><%= p.created_at %></td>
+<%if current_user.username==p.author %>
+<td>
+          <%= link_to '編集', edit_passage_path(p.id), :class => 'btn btn-mini' %>
+
+          <%= link_to '削除', passage_path(p.id), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+        <% end %>
+</tr>
+<% end %>
+  </tbody>
+</table>
+<%= form_for @passage do |f| %>
+<p><%= f.label "タイトル" ,:class=> "label label-info"%><br />
+ <%= f.text_field :title %>
+</p>
+<p>
+  <div><%= f.label "内容" ,:class=> "label label-info"%><br />
+  <%= f.text_area :content %></div>
+</p>
+  <p><%= f.submit "投稿"%></p>
+<% end %>
+<div><%=link_to "Logout",  destroy_user_session_path, :method => :delete %></div>
