@@ -1,3 +1,4 @@
+
 <h1>投稿一覧</h1>
 <table class="table table-striped">
   <thead>
@@ -49,8 +50,10 @@
   <%end%>
   <%end%>
   <div><%= f.label "内容" ,:class=> "label label-info"%><br />
-  <%= f.text_area :content %></div>
-</p>
+  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="画像" ></input>
+  <%= f.text_area :content ,:id=>"txtarea1"%></div>
+</p>  
   <p><%= f.submit "投稿"%></p>
 <% end %>
 <div><%=link_to "Logout",  destroy_user_session_path, :method => :delete %></div>
+  
