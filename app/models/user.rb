@@ -19,4 +19,6 @@ class User < ActiveRecord::Base
       end
     end
 	has_many :passages
+  has_one :userinfo
+  has_many :comments
 end

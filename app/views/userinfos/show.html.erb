@@ -1,0 +1,7 @@
+
+<%=image_tag @userinfo.image%>
+<%= form_for(@userinfo) do |f| %>
+<%= f.label :image %>
+<%= f.file_field :image %> 
+<%=f.submit %>
+<%end%>

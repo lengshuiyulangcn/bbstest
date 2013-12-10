@@ -109,6 +109,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    rmagick (2.13.2)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
     sass (3.2.12)
@@ -158,6 +159,7 @@ DEPENDENCIES
   less-rails
   rails (= 3.2.13)
   rbbcode
+  rmagick
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer

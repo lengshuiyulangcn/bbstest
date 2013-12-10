@@ -8,7 +8,8 @@ class CommentsController < ApplicationController
 		@comment=Comment.new
 		@comment.content=params[:comment][:content]
 		@comment.passage_id=params[:comment][:passage_id]
-		@comment.author=current_user.username		
+		@comment.author=current_user.username
+		@comment.user_id=current_user.id		
 		if @comment.save
 			redirect_to passage_path(@comment.passage_id)
 		else

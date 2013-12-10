@@ -1,5 +1,9 @@
 
-<h1>投稿一覧</h1>
+<h1>投稿一覧
+  <%if current_user.userinfo.image!=nil%>
+<%=image_tag current_user.userinfo.image%>
+<%end%>
+</h1>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -49,8 +53,11 @@
   <%=error %>
   <%end%>
   <%end%>
+  <p>
   <div><%= f.label "内容" ,:class=> "label label-info"%><br />
-  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="画像" ></input>
+  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
+  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
+  </p>
   <%= f.text_area :content ,:id=>"txtarea1"%></div>
 </p>  
   <p><%= f.submit "投稿"%></p>

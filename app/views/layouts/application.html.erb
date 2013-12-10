@@ -68,9 +68,17 @@ function insertText(obj,str) {
           <a class="brand" href="/">掲示板</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Log out", destroy_user_session_path, :method => :delete  %></li>
-              <li><%= link_to "Log in", new_user_session_path  %></li>
-              <li><%= link_to "About", "/path3"  %></li>
+              
+              <%if current_user!=nil%>
+              <%if current_user.userinfo==nil%>
+              <% userinfo=Userinfo.new %>
+              <% userinfo.user_id=current_user.id%>
+              <% userinfo.save %>
+              <%end%>
+              <li><%= link_to current_user.username, edit_userinfo_path(current_user.userinfo.id)  %></li>
+              <%end%>
+              <li><%= link_to "ログアウト", destroy_user_session_path, :method => :delete  %></li>
+              <li><%= link_to "ID変更", new_user_session_path  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

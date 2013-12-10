@@ -17,6 +17,7 @@ class PassagesController < ApplicationController
 		@passage.title=params[:passage][:title]
 		@passage.content=params[:passage][:content]
 		@passage.author=author
+		@passage.user_id=current_user.id
 		if @passage.save
 			redirect_to passages_path
 		else

@@ -1,0 +1,7 @@
+
+<%=image_tag @userinfo.image.thumb%>
+<%= form_for(@userinfo) do |f| %>
+<%= f.label "今のアイコン"%>
+<%= f.file_field :image %> 
+<%=f.submit "アイコンを変更",:class => 'btn btn-mini'%>
+<%end%>

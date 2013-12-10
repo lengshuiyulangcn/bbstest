@@ -2,6 +2,7 @@ Bbstest::Application.routes.draw do
   devise_for :users
   resources :passages
   resources :comments
+  resources :userinfos
   root :to => 'passages#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

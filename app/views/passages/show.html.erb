@@ -2,6 +2,7 @@
 <p>
   <b>作者</b><br>
   <%= @passage.author %>
+  <%=image_tag Userinfo.find(:first, :conditions=>{:user_id=>@passage.user_id}).image.thumb%>
 </p>
 <p>
   <b>正文</b><br>
@@ -15,6 +16,7 @@
 </p>
 <%flour+=1%>
 <p><%=comment.author %>
+   <%=image_tag Userinfo.find(:first, :conditions=>{:user_id=>comment.user_id}).image.thumb%>
 <%if current_user.username==comment.author %>
 <%= link_to '編集', edit_comment_path(comment.id), :class => 'btn btn-mini' %>
  <%= link_to 'コメントを削除', comment_path(comment.id),:method => :delete, :confirm => '本当に本当に削除しますか?', :class => 'btn btn-mini btn-danger' %>
