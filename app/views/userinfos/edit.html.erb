@@ -4,12 +4,14 @@
 <p>
 	<b>アイコン:</b>
 <%=image_tag @userinfo.image.thumb%>
-<p>
+</p>
 <%if @userinfo.user_id==current_user.id %>
 <p>
 <%= form_for(@userinfo) do |f| %>
+	<%=f.label "自己PR:"%>
+<%=f.text_field :pr%></br>
 <%= f.file_field :image %> 
-<%=f.submit "アイコンを変更",:class => 'btn btn-mini'%>
+<%=f.submit "個人情報変更",:class => 'btn btn-mini'%>
 <%end%>
 </p>
 <%end%>
