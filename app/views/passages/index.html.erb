@@ -1,6 +1,6 @@
 
 <h1>投稿一覧
-  <%if current_user.userinfo.image!=nil%>
+  <%if current_user.userinfo!=nil%>
 <%=image_tag current_user.userinfo.image%>
 <%end%>
 </h1>
@@ -19,14 +19,15 @@
 <% @passages.each do |p| %>
 <tr>
 <td><%= link_to p.title, passage_path(p.id) %></td>
-<td><%= p.author %></td>
+<td><%=link_to p.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>p.user_id}).id) %></td>
 <td><%= p.comments.size %></td>
 <% if !p.comments.empty? %>
-<td><%= p.comments.find(:last).author %></td>
+<%com=p.comments.find(:last)%>
+<td><%=link_to com.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>com.user_id}).id)%></td>
 <%else %>
 <td>__</td> 
 <%end%>
-<td><%= p.created_at %></td>
+<td><%= p.created_at.strftime('%Y/%m/%d %H:%M') %></td>
 <%if current_user.username==p.author %>
 <td>
           <%= link_to '編集', edit_passage_path(p.id), :class => 'btn btn-mini' %>

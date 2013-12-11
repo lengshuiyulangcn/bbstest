@@ -70,15 +70,14 @@ function insertText(obj,str) {
             <ul class="nav">
               
               <%if current_user!=nil%>
-              <%if current_user.userinfo==nil%>
-              <% userinfo=Userinfo.new %>
-              <% userinfo.user_id=current_user.id%>
-              <% userinfo.save %>
-              <%end%>
+              <%if current_user.userinfo!=nil%>
+            
+              
               <li><%= link_to current_user.username, edit_userinfo_path(current_user.userinfo.id)  %></li>
               <%end%>
+              <%end%>
               <li><%= link_to "ログアウト", destroy_user_session_path, :method => :delete  %></li>
-              <li><%= link_to "ID変更", new_user_session_path  %></li>
+              <li><%= link_to "パスワード変更", edit_user_password_path  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

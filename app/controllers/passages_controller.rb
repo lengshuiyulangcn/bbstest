@@ -1,6 +1,14 @@
 class PassagesController < ApplicationController
 	before_filter :authenticate_user!
 	def index
+		@user=User.find(current_user.id)
+		if @user.userinfo==nil
+			@userinfo=Userinfo.new
+			@userinfo.user_id=@user.id
+			@userinfo.save
+		else
+			@userinfo=@user.userinfo
+		end
 		@passages=Passage.all
 		@passage=Passage.new
 	end

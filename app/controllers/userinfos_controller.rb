@@ -9,5 +9,6 @@ class UserinfosController < ApplicationController
 	end
 	def edit
 		@userinfo=Userinfo.find(params[:id])
+		@passages=Passage.find(:all,:conditions=>{:user_id=>@userinfo.user_id})
 	end
 end

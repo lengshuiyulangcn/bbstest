@@ -1,28 +1,35 @@
+<div>
 <h2><%= @passage.title %></h2>
 <p>
-  <b>作者</b><br>
+  <b>作者:</b>
   <%= @passage.author %>
-  <%=image_tag Userinfo.find(:first, :conditions=>{:user_id=>@passage.user_id}).image.thumb%>
+   <%=image_tag Userinfo.find(:first, :conditions=>{:user_id=>@passage.user_id}).image.thumb%>
 </p>
+</div>
 <p>
   <b>正文</b><br>
   <%=raw RbbCode.new.convert(@passage.content) %>
 </p>
+
+<br>
+<br>
+<%=@passage.created_at.strftime('%Y/%m/%d %H:%M')%>
 <% flour=1 %>
-<% @passage.comments.each do |comment| %>
-<p>
+<%@passage.comments.each do |comment| %>
+<div class="box">
 <%=flour%>.
-<%=comment.created_at%>
-</p>
+ <%=image_tag Userinfo.find(:first, :conditions=>{:user_id=>comment.user_id}).image.thumb%>
+<%=comment.author %>
+<%=comment.updated_at.strftime('%Y/%m/%d %H:%M')%>
 <%flour+=1%>
-<p><%=comment.author %>
-   <%=image_tag Userinfo.find(:first, :conditions=>{:user_id=>comment.user_id}).image.thumb%>
+<p>
+<p><%=raw RbbCode.new.convert(comment.content) %></p>
 <%if current_user.username==comment.author %>
 <%= link_to '編集', edit_comment_path(comment.id), :class => 'btn btn-mini' %>
  <%= link_to 'コメントを削除', comment_path(comment.id),:method => :delete, :confirm => '本当に本当に削除しますか?', :class => 'btn btn-mini btn-danger' %>
  <%end%>
-<p><%=raw RbbCode.new.convert(comment.content) %></p>
 </p>
+</div>
 <% end %>
 <div >
 	<% if current_user.username==@passage.author %>

@@ -1,7 +1,23 @@
-
+<p><b>ユーザ名:</b>
+<%=User.find(@userinfo.user_id).username%>
+</p>
+<p>
+	<b>アイコン:</b>
 <%=image_tag @userinfo.image.thumb%>
+<p>
+<%if @userinfo.user_id==current_user.id %>
+<p>
 <%= form_for(@userinfo) do |f| %>
-<%= f.label "今のアイコン"%>
 <%= f.file_field :image %> 
 <%=f.submit "アイコンを変更",:class => 'btn btn-mini'%>
 <%end%>
+</p>
+<%end%>
+<div>
+<b>書き込み履歴</b>(<%=@passages.size%>件)
+<%@passages.each do |passage| %>
+<li>
+<%=link_to passage.title, passage_path(passage.id)%>
+</li>
+<%end%>
+<div>
