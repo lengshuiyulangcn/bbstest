@@ -1,0 +1,5 @@
+$('#title_error').html( "<%=@passage.errors[:title].first%>");
+$('#content_error').html("<%=escape_javascript(@passage.errors[:content].first)%>");
+$('#passagetable').html("<%=escape_javascript(render :partial=>"table",:object=>@passages)%>");
+$('#txttitle').val(''); //take care that title comes first
+$('#txtarea1').val('');

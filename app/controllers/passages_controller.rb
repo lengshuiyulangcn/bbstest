@@ -26,12 +26,16 @@ class PassagesController < ApplicationController
 		@passage.content=params[:passage][:content]
 		@passage.author=author
 		@passage.user_id=current_user.id
-		if @passage.save
-			redirect_to passages_path
-		else
-			@passages=Passage.all
-			render :action => "index"
-		end
+		
+		  if @passage.save
+                        @passages=Passage.all
+                        
+                        redirect_to passages_path
+                else
+                        @passages=Passage.all
+                        
+                        render :action => "index"
+                end
 	end
 	def edit
 		@passage=Passage.find(params[:id])
@@ -47,7 +51,9 @@ class PassagesController < ApplicationController
 		@passage=Passage.find(params[:id])
 		if current_user.username==@passage.author
 		Passage.delete(@passage)
-		redirect_to passages_path
+		@passages=Passage.all
+		render :action => "index"
+		#redirect_to passages_path
 		else
 			redirect_to passages_path
 		end

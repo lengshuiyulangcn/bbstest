@@ -1,0 +1,59 @@
+
+<h1>投稿一覧
+  <%if current_user.userinfo!=nil%>
+<%=image_tag current_user.userinfo.image%>
+<%end%>
+</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>作者</th>
+      <th>コメント数</th>
+      <th>最近コメントした人</th>
+      <th>作成時間</th>
+
+    </tr>
+  </thead>
+  <tbody>
+<% @passages.each do |p| %>
+<tr>
+<td><%= link_to p.title, passage_path(p.id) %></td>
+<td><%=link_to p.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>p.user_id}).id) %></td>
+<td><%= p.comments.size %></td>
+<% if !p.comments.empty? %>
+<%com=p.comments.find(:last)%>
+<td><%=link_to com.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>com.user_id}).id)%></td>
+<%else %>
+<td>__</td> 
+<%end%>
+<td><%= p.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+<%if current_user.username==p.author %>
+<td>
+          <%= link_to '編集', edit_passage_path(p.id), :class => 'btn btn-mini' %>
+
+          <%= link_to '削除', passage_path(p.id), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+        <% end %>
+</tr>
+<% end %>
+  </tbody>
+</table>
+<div id="title_error"></div>
+<div id="content_error"></div>
+<%= form_for @passage,:url=>{:action=>"create"},:remote=>true do |f| %>
+<p><%= f.label "タイトル" ,:class=> "label label-info"%><br />
+ <%= f.text_field :title %>
+</p>
+<p>
+  <p>
+  <div><%= f.label "内容" ,:class=> "label label-info"%><br />
+  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
+  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
+  </p>
+  <%= f.text_area :content ,:id=>"txtarea1"%></div>
+</p>  
+  <p><%= f.submit "投稿"%></p>
+<% end %>
+<div><%=link_to "Logout",  destroy_user_session_path, :method => :delete %></div>
+  

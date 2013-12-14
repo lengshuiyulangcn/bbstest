@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
 		@comment.author=current_user.username
 		@comment.user_id=current_user.id		
 		if @comment.save
+			@passage=Passage.find(@comment.passage_id)
 			redirect_to passage_path(@comment.passage_id)
 		else
 			@passage=Passage.find(params[:comment][:passage_id])
