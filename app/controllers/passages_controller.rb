@@ -14,6 +14,7 @@ class PassagesController < ApplicationController
 	end
 	def show
 		@passage=Passage.find(params[:id])
+		@passage.click!
 		@comment=Comment.new
 	end
 	def new

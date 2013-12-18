@@ -16,7 +16,7 @@
 <tr>
 <td><%= link_to p.title, passage_path(p.id) %></td>
 <td><%=link_to p.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>p.user_id}).id) %></td>
-<td><%= p.comments.size %></td>
+<td><%= p.comments.size %>/<%= p.clicked%></td>
 <% if !p.comments.empty? %>
 <%com=p.comments.find(:last)%>
 <td><%=link_to com.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>com.user_id}).id)%></td>

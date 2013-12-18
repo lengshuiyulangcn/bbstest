@@ -1,1 +1,3 @@
-this is a bbs framework using rails on ruby
+this is a bbs framework
+
+download it and use it freely
