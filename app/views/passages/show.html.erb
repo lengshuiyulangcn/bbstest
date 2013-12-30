@@ -19,12 +19,7 @@
 <%=@passage.created_at.strftime('%Y/%m/%d %H:%M')%>
 <div id="comment_table"><%=render :partial=>"comment"%></div>
 <%= form_for @comment,:remote=>true do |f| %>
-<p><%= f.label "コメント:" ,:class=> "label label-info"%>
-  <% if @comment.errors.any?%>
-  <% @comment.errors[:content].each do |error|%>
-  <%=error %>
-  <%end%>
-  <%end%>
+<p><%= f.label "コメント:" ,:class=> "label label-info"%> <div id="content_error"></div>
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
   </p>

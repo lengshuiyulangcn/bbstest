@@ -76,7 +76,12 @@ function insertText(obj,str) {
               <li><%= link_to current_user.username, edit_userinfo_path(current_user.userinfo.id)  %></li>
               <%end%>
               <%end%>
-              <li><%= link_to "ログアウト", destroy_user_session_path, :method => :delete  %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to 'ログアウト', destroy_user_session_path %></li>
+              <% else %>
+                <li><%= link_to "RenRenでログイン", user_omniauth_authorize_path(:renren) %></li>
+              
+              <% end %>
               <li><%= link_to "パスワード変更", edit_user_password_path  %></li>
             </ul>
           </div><!--/.nav-collapse -->

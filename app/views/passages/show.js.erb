@@ -1,4 +1,3 @@
-//$('#title_error').html( "<%=@passage.errors[:title].first%>");
-//$('#content_error').html("<%=escape_javascript(@passage.errors[:content].first)%>");
+
 $('#comment_table').html("<%=escape_javascript(render :partial=>"comment",:object=>@passage)%>");
 $('#txtarea1').val('');

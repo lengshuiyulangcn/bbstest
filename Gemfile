@@ -9,6 +9,7 @@ gem "rbbcode"
 gem 'sqlite3'
 gem "carrierwave"
 gem "devise"
+gem "omniauth-renren-oauth2"
 gem "therubyracer"
 gem "rmagick"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
