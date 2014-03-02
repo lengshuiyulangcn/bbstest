@@ -4,7 +4,7 @@
 <div class="box">
 <%=flour%>.
 <%userinfo2=Userinfo.find(:first, :conditions=>{:user_id=>comment.user_id})%>
- <%=image_tag userinfo2.image.thumb%>
+ <%=image_tag userinfo2.image%>
 <%=link_to comment.author,edit_userinfo_path(userinfo2.id) %>
 (<%=userinfo2.pr%>)
 <%flour+=1%>

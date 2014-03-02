@@ -1,25 +1,28 @@
-<div>
-<h2><%= @passage.title %></h2>
-</div>
-<p>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h2><%= @passage.title %></h2></div>
+    <div class="panel-body">
   <hr color="#ff99cc" style="filter:alpha(opacity=100,finishopacity=0,style=1);">
-  <p>
   <b>作者:</b>
   <%userinfo1=Userinfo.find(:first, :conditions=>{:user_id=>@passage.user_id})%>
-   <%=image_tag userinfo1.image.thumb%>
+   <%=image_tag userinfo1.image%>
   <%=link_to @passage.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>@passage.user_id}).id)  %>
   (<%=userinfo1.pr%>)
-</p>
   <b>正文</b><br>
   <%=raw RbbCode.new.convert(@passage.content) %>
-</p>
-
 <br>
 <br>
 <%=@passage.created_at.strftime('%Y/%m/%d %H:%M')%>
+</div>
+</div>
+</div>
 <div id="comment_table"><%=render :partial=>"comment"%></div>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h2><%="コメント"%></h2></div>
+    <div class="panel-body">
 <%= form_for @comment,:remote=>true do |f| %>
-<p><%= f.label "コメント:" ,:class=> "label label-info"%> <div id="content_error"></div>
+　<div id="content_error"></div>
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
   </p>
@@ -27,3 +30,6 @@
   <%=f.hidden_field :passage_id , :value=>@passage.id %>
   <p><%= f.submit "提出",  :class => 'btn btn-mini' %></p>
 <% end %>
+</div>
+</div>
+</div>

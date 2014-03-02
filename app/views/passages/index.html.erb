@@ -1,7 +1,7 @@
 
 <h1>投稿一覧
   <%if current_user.userinfo!=nil%>
-<%=image_tag current_user.userinfo.image%>
+	<%=image_tag current_user.userinfo.image, :alt=>"icon"%>
 <%end%>
 </h1>
 <div id="passagetable"><%=render :partial=>"table"%></div>

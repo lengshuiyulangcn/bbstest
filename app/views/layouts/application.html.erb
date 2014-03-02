@@ -55,7 +55,7 @@ function insertText(obj,str) {
 </script>
 
   </head>
-  <body>
+  <body onload="initialize()" style="background-color: rgb(233,233,233);">
 
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
@@ -77,12 +77,13 @@ function insertText(obj,str) {
               <%end%>
               <%end%>
               <% if user_signed_in? %>
-                <li><%= link_to 'ログアウト', destroy_user_session_path %></li>
+                  <li><%= link_to 'ログアウト', destroy_user_session_path %></li>
+                  <li><%= link_to "パスワード変更", edit_user_password_path  %></li>
               <% else %>
                 <li><%= link_to "RenRenでログイン", user_omniauth_authorize_path(:renren) %></li>
+                <li><%= link_to "ユーザ登録", new_user_registration_path %></li>
               
               <% end %>
-              <li><%= link_to "パスワード変更", edit_user_password_path  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -92,14 +93,18 @@ function insertText(obj,str) {
           
         <div class="span10">
           <%= bootstrap_flash %>
-
+          <div class="container">
           <%= yield %>
+        </div>
+           <script src="/vendor/jquery-1.9.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
         </div>
     
 
-      <footer>
+ <!--      <footer>
         <p>&copy; tjjtds.me 2013</p>
-      </footer>
+      </footer> -->
 
     </div> <!-- /container -->
 
