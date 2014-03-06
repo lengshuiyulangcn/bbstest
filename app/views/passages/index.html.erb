@@ -3,21 +3,38 @@
   <%if current_user.userinfo!=nil%>
 	<%=image_tag current_user.userinfo.image, :alt=>"icon"%>
 <%end%>
+<div class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    操作
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+    	<%=link_to "新しい書き込み", new_passage_path%>
+    </li>
+    <li>
+    	<%=link_to "ユーザ情報確認/変更", edit_userinfo_path(current_user.id)%>
+    </li>
+  </ul>
+</div>
 </h1>
 <div id="passagetable"><%=render :partial=>"table"%></div>
+<div class="container">
+	<div class="panel panel-primary">
 <%= form_for @passage,:url=>{:action=>"create"},:remote=>true do |f| %>
-<p><%= f.label "タイトル" ,:class=> "label label-info"%><div id="title_error"></div><br />
+<div class="pannel-heading"><%= f.label "タイトル" ,:class=> "label label-info"%><div id="title_error"></div><br />
  <%= f.text_field :title ,:id=>"txttitle" %>
-</p>
-<p>
-  <p>
-  <div><%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div><br />
+</div>
+</div>
+  <div class="panel panel-primary"><%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div><br />
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
   </p>
   <%= f.text_area :content ,:id=>"txtarea1"%></div>
-</p>  
+</p>
   <p><%= f.submit "投稿"%></p>
 <% end %>
+</div>
 <div><%=link_to "Logout",  destroy_user_session_path, :method => :delete %></div>
-  
+</div>
+  </div>

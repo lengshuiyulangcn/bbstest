@@ -29,11 +29,9 @@
     <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
     <!-- Size should be 57 x 57 pixels -->
     <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
-
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
-
     <%= javascript_include_tag "application" %>
    <script>
 function insertText(obj,str) {
@@ -93,20 +91,11 @@ function insertText(obj,str) {
           
         <div class="span10">
           <%= bootstrap_flash %>
-          <div class="container">
           <%= yield %>
-        </div>
            <script src="/vendor/jquery-1.9.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
         </div>
-    
-
- <!--      <footer>
-        <p>&copy; tjjtds.me 2013</p>
-      </footer> -->
-
     </div> <!-- /container -->
-
   </body>
 </html>

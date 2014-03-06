@@ -1,3 +1,4 @@
+#encoding:utf-8
 class PassagesController < ApplicationController
 	before_filter :authenticate_user!
 	def index
@@ -24,8 +25,8 @@ class PassagesController < ApplicationController
 		
 		  if @passage.save
                         @passages=Passage.all
-                       
-                        redirect_to passages_path
+                  
+                        redirect_to passages_path, :notice=>"passage_created"
                 else
                         @passages=Passage.all
                         
