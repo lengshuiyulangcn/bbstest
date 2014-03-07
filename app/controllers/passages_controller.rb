@@ -5,6 +5,7 @@ class PassagesController < ApplicationController
 		@user=User.find(current_user.id)
 		
 		@passages=Passage.all
+
 		@passage=Passage.new
 	end
 	def show

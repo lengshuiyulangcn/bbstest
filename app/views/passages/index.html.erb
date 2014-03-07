@@ -10,31 +10,55 @@
   </a>
   <ul class="dropdown-menu">
     <li>
-    	<%=link_to "新しい書き込み", new_passage_path%>
+    	<%=link_to "ユーザ情報確認/変更", edit_userinfo_path(current_user.id)%>
     </li>
     <li>
-    	<%=link_to "ユーザ情報確認/変更", edit_userinfo_path(current_user.id)%>
+    	<a data-toggle="modal" href="#myModal">新しい書き込み</a>
     </li>
   </ul>
 </div>
 </h1>
 <div id="passagetable"><%=render :partial=>"table"%></div>
-<div class="container">
-	<div class="panel panel-primary">
-<%= form_for @passage,:url=>{:action=>"create"},:remote=>true do |f| %>
-<div class="pannel-heading"><%= f.label "タイトル" ,:class=> "label label-info"%><div id="title_error"></div><br />
- <%= f.text_field :title ,:id=>"txttitle" %>
+<div class="pagination">
+    <ul>
+        <li class="disabled"><a href="#">«</a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">»</a></li>
+    </ul>
 </div>
-</div>
-  <div class="panel panel-primary"><%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div><br />
+ <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <h3 id="myModalLabel">Create New Passage</h3>
+  </div>
+  <div class="modal-body">
+    <%= form_for @passage,:url=>{:action=>"create"} do |f| %>
+<%= f.label "タイトル" ,:class=> "label label-info"%><div id="title_error"></div>
+  <%= f.text_field :title ,:id=>"txttitle", :class=>"span5" %>
+  <br/><%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div>
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
   <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
   </p>
-  <%= f.text_area :content ,:id=>"txtarea1"%></div>
+  <%= f.text_area :content ,:id=>"txtarea1", :class=>"span5"%>
+</p>
+  <p><%= f.submit "投稿"%></p>
+<% end %>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+<%= form_for @passage,:url=>{:action=>"create"},:remote=>true do |f| %>
+<%= f.label "タイトル" ,:class=> "label label-info"%><div id="title_error"></div>
+  <%= f.text_field :title ,:id=>"txttitle", :class=>"span8" %>
+  <%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div>
+  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
+  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
+  </p>
+  <%= f.text_area :content ,:id=>"txtarea1", :class=>"span8"%>
 </p>
   <p><%= f.submit "投稿"%></p>
 <% end %>
 </div>
-<div><%=link_to "Logout",  destroy_user_session_path, :method => :delete %></div>
-</div>
-  </div>
