@@ -1,5 +1,5 @@
-
 <%=image_tag @userinfo.image%>
+<p>point:<%=@userinfo.money%></p>
 <%= form_for(@userinfo) do |f| %>
 <%= f.label :image %>
 <%= f.file_field :image %> 

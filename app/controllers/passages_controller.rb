@@ -26,7 +26,7 @@ class PassagesController < ApplicationController
 		  if @passage.save
                         @passages=Passage.all
                   
-                        redirect_to passages_path, :notice=>"passage_created"
+                        redirect_to passages_path, :notice=>"new passage created"
                 else
                         @passages=Passage.all
                         
@@ -35,6 +35,10 @@ class PassagesController < ApplicationController
 	end
 	def edit
 		@passage=Passage.find(params[:id])
+		if current_user!=@passage.user
+			flash[:notice]="not permitted"
+			redirect_to passages_path
+		end
 	end
 	def update
 		@passage=Passage.find(params[:id])
@@ -45,12 +49,13 @@ class PassagesController < ApplicationController
 	end
 	def destroy
 		@passage=Passage.find(params[:id])
-		if current_user.username==@passage.author
+		if current_user==@passage.user
 		Passage.delete(@passage)
 		@passages=Passage.all
 		render :action => "index"
 		#redirect_to passages_path
 		else
+			flash[:notice]="not permitted"
 			redirect_to passages_path
 		end
 		

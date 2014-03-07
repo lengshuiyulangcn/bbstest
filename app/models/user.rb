@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
         self.userinfo=Userinfo.new
         self.userinfo.user_id=self.id
         self.userinfo.pr="prなし"
+        self.userinfo.money=0
         # if self.userinfo.image==""
         # end
         self.userinfo.save

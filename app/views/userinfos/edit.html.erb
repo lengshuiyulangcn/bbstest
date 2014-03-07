@@ -1,9 +1,11 @@
+<div class="container">
 <p><b>ユーザ名:</b>
 <%=User.find(@userinfo.user_id).username%>
 </p>
 <p>
 	<b>アイコン:</b>
 <%=image_tag @userinfo.image%>
+<p><b>ポイント:</b><%=@userinfo.money%></p>
 </p>
 <%if @userinfo.user_id==current_user.id %>
 <p>
@@ -15,11 +17,10 @@
 <%end%>
 </p>
 <%end%>
-<div>
 <b>書き込み履歴</b>(<%=@passages.size%>件)
 <%@passages.each do |passage| %>
 <li>
 <%=link_to passage.title, passage_path(passage.id)%>
 </li>
 <%end%>
-<div>
+</div>

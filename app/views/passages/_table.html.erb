@@ -24,20 +24,23 @@
 <td>__</td> 
 <%end%>
 <td><%= p.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-<%if current_user.username==p.author %>
 <td>
-          <%= link_to '編集', edit_passage_path(p.id), :class => 'btn btn-mini' %>
-
-          <%= link_to '削除', passage_path(p.id), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger', :remote=>true%>
-        </td>
-        <% end %>
-</tr>
-<div>
-<% end %>
+<div class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    操作
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <%= link_to '編集', edit_passage_path(p.id)%>
+    </li>
+    <li>
+      <%= link_to '削除', passage_path(p.id), :method => :delete, :confirm => 'Are you sure?', :remote=>true%>
+    </li>
+  </ul>
 </div>
+</td>
+</tr>
+<% end %>
   </tbody>
 </table>
-<% if flash[:notice] %>
-  <div class="alert fade in alert-success"><button class="close" data-dismiss="alert">x</button>
-    <%= flash[:notice] %></div>
-<% end %>
