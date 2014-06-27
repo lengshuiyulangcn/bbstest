@@ -3,14 +3,21 @@ class PassagesController < ApplicationController
 	before_filter :authenticate_user!
 	def index
 		@user=User.find(current_user.id)
-		
-		@passages=Passage.all
-
+		@passages= Passage.paginate(:page => params[:page], :order=>'created_at DESC', :per_page => 10)	
+		#@num=@passages.size/10
+		#pagenow=params[:page].to_i-1
+		#puts pagenow
+		#if pagenow!=nil
+	#		@passages=@passages[pagenow*10..pagenow*10+9]
+	#	else
+	#		@passages=@passages[0..10]
+	#	end
 		@passage=Passage.new
 	end
 	def show
 		@passage=Passage.find(params[:id])
 		@passage.click!
+		@comments=Comment.where(passage_id: params[:id]).paginate(:page => params[:page], :order=>'created_at DESC', :per_page => 5)	
 		@comment=Comment.new
 	end
 	def new

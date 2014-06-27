@@ -20,14 +20,7 @@
 </h1>
 <div id="passagetable"><%=render :partial=>"table"%></div>
 <div class="pagination">
-    <ul>
-        <li class="disabled"><a href="#">«</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">»</a></li>
-    </ul>
+<%= will_paginate @posts %> 
 </div>
  <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
@@ -38,8 +31,6 @@
 <%= f.label "タイトル" ,:class=> "label label-info"%><div id="title_error"></div>
   <%= f.text_field :title ,:id=>"txttitle", :class=>"span5" %>
   <br/><%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div>
-  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
-  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
   </p>
   <%= f.text_area :content ,:id=>"txtarea1", :class=>"span5"%>
 </p>
@@ -54,8 +45,6 @@
 <%= f.label "タイトル" ,:class=> "label label-info"%><div id="title_error"></div>
   <%= f.text_field :title ,:id=>"txttitle", :class=>"span8" %>
   <%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div>
-  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
-  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
   </p>
   <%= f.text_area :content ,:id=>"txtarea1", :class=>"span8"%>
 </p>

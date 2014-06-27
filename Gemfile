@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem "carrierwave"
 gem "devise"
 gem "omniauth-renren-oauth2"
+gem "will_paginate"
 gem "therubyracer"
 gem "rmagick"
 gem "twitter-bootstrap-rails"

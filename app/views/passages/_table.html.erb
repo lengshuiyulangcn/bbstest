@@ -1,46 +1,16 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>タイトル</th>
-      <th>作者</th>
-      <th>コメント数</th>
-      <th>最近コメントした人</th>
-      <th>作成時間</th>
 
-    </tr>
-  </thead>
-  <tbody>
-    <div id="table">
+ <%if @passages!=nil%>
 <% @passages.each do |p| %>
 <div id="passage_<%=p.id%>">
-<tr>
-<td><%= link_to p.title, passage_path(p.id) %></td>
-<td><%=link_to p.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>p.user_id}).id) %></td>
-<td><%= p.comments.size %>/<%= p.clicked%></td>
+<%= link_to p.title, passage_path(p.id) %>
+<%=link_to p.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>p.user_id}).id) %>
+<%= p.comments.size %>/<%= p.clicked%>
 <% if !p.comments.empty? %>
 <%com=p.comments.find(:last)%>
-<td><%=link_to com.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>com.user_id}).id)%></td>
+<%=link_to com.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>com.user_id}).id)%>
 <%else %>
 <td>__</td> 
 <%end%>
-<td><%= p.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-<td>
-<div class="btn-group">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    操作
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li>
-      <%= link_to '編集', edit_passage_path(p.id)%>
-    </li>
-    <li>
-      <%= link_to '削除', passage_path(p.id), :method => :delete, :confirm => 'Are you sure?', :remote=>true%>
-    </li>
-  </ul>
-</div>
-</td>
-</tr>
+<%= p.created_at.strftime('%Y/%m/%d %H:%M') %>
 <% end %>
-  </tbody>
-</table>
+<%end%>

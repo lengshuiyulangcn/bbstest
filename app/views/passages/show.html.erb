@@ -22,10 +22,6 @@
     <div class="panel-heading"><h2><%="コメント"%></h2></div>
     <div class="panel-body">
 <%= form_for @comment,:remote=>true do |f| %>
-　<div id="content_error"></div>
-  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[img][/img]')" value="画像" ></input>
-  <input type="button" onclick="insertText(document.getElementById('txtarea1'),'[b][/b]')" value="bold" ></input>
-  </p>
   <%= f.text_area :content, :id=>"txtarea1"%>
   <%=f.hidden_field :passage_id , :value=>@passage.id %>
   <p><%= f.submit "提出",  :class => 'btn btn-mini' %></p>
