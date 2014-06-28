@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140307043741) do
+ActiveRecord::Schema.define(:version => 20140627135305) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "thumb_image"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -26,10 +34,11 @@ ActiveRecord::Schema.define(:version => 20140307043741) do
     t.string   "title"
     t.string   "content"
     t.string   "author"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "user_id"
     t.integer  "clicked"
+    t.integer  "category_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

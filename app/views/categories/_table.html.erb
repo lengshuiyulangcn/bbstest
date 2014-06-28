@@ -1,0 +1,37 @@
+<table>
+	<tr>
+		<td>标题</td>
+		<td>作者</td>
+		<td>点击</td>
+		<td>最后评论</td>
+		<td>发布时间</td>
+	</tr>
+	<tr>
+<%if @passages!=nil%>
+<% @passages.each do |p| %>
+<td>
+<div id="passage_<%=p.id%>">
+<%= link_to p.title, passage_path(p.id) %>
+</td>
+<td>
+<%=link_to p.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>p.user_id}).id) %>
+ </td>
+ <td>
+<%= p.comments.size %>/<%= p.clicked%>
+</td>
+<td>
+<% if !p.comments.empty? %>
+<%com=p.comments.find(:last)%>
+<%=link_to com.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>com.user_id}).id)%>
+<%else %>
+暂时无人评论 
+<%end%>
+</td>
+</div>
+<td>
+<%= p.created_at.strftime('%Y/%m/%d %H:%M') %>
+</td>
+</tr>
+<% end %>
+<%end%>
+<table>

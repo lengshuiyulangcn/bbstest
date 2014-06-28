@@ -4,7 +4,9 @@
 </p>
 <p>
   <div><%= f.label "内容" ,:class=> "label label-info"%><br />
-  <%= f.text_area :content %></div>
+  <%=f.kindeditor  :content %>
+   <!-- <%= f.text_area :content %> -->
+</div>
 </p>
   <p><%= f.submit "投稿"%></p>
 <% end %>

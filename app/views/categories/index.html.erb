@@ -1,0 +1,48 @@
+<div class="cat_box">
+<%@cats.each do |cat|%>
+<div id="container">
+<div id="leftContent">
+<%=image_tag(cat.thumb_image, :size=>"100x100", :alt=>"暂缺")%>
+	<p><%=link_to cat.name, category_path(cat.id)%></p>
+</div>
+<div id="rightContent">
+<%=cat.description%>
+<div id="text">
+最新发帖：
+<%cat.recent_passage.each do |passage|%>
+<li><%=link_to passage.title, passage_path(passage.id)%></li>
+<%end%>
+</div>
+</div>
+</div>
+<br>
+<%end%>
+</div>
+<%if current_user.username==ENV["admin"]%>
+<button data-toggle="modal" href="#myModal">创建新分区</button>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <h3 id="myModalLabel">创建新的分区</h3>
+  </div>
+  <div class="modal-body">
+<%= form_for(@new_cat) do |f| %>
+<div class="title">
+新分区名称：
+<%=f.text_field :name %>
+</div>
+<div class="content">
+描述：
+<%=f.text_area :description%>
+</div>
+<div class="url">
+设置新图像：
+<%=f.text_field :thumb_image%>
+</div>
+<%=f.submit "创建新分区"%>
+<% end %>
+</div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div> 
+<%end%>

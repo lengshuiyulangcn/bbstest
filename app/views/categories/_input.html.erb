@@ -1,0 +1,10 @@
+<%= form_for @passage do |f| %>
+<%= f.label "标题" ,:class=> "label label-info"%><div id="title_error"></div>
+  <%= f.text_field :title%>
+  <%= f.hidden_field :id, :value=>@cat.id%>
+  <br>
+  <%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div>
+  <%= f.text_area :content%>
+  <br>
+  <%= f.submit "发帖"%>
+<% end %>

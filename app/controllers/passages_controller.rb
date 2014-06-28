@@ -28,17 +28,16 @@ class PassagesController < ApplicationController
 		@passage=Passage.new
 		@passage.title=params[:passage][:title]
 		@passage.content=params[:passage][:content]
+		@passage.category_id=params[:passage][:id]
 		@passage.author=author
 		@passage.user_id=current_user.id
 		
 		  if @passage.save
-                        @passages=Passage.all
+                        # @passages=Passage.all
                   
-                        redirect_to passages_path, :notice=>"new passage created"
+                        redirect_to category_path(params[:passage][:id]), :notice=>"new passage created"
                 else
-                        @passages=Passage.all
-                        
-                        render :action => "index"
+                        redirect_to category_path(params[:passage][:id]), :error=>"your input not correct"
                 end
 	end
 	def edit
@@ -59,9 +58,8 @@ class PassagesController < ApplicationController
 		@passage=Passage.find(params[:id])
 		if current_user==@passage.user
 		Passage.delete(@passage)
-		@passages=Passage.all
-		render :action => "index"
-		#redirect_to passages_path
+		# @passages=Passage.all
+		redirect_to root
 		else
 			flash[:notice]="not permitted"
 			redirect_to passages_path

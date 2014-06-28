@@ -1,6 +1,7 @@
 <div class="container">
 <p><b>ユーザ名:</b>
-<%=User.find(@userinfo.user_id).username%>
+<%name=User.find(@userinfo.user_id).username%>
+<%=name%>
 </p>
 <p>
 	<b>アイコン:</b>
@@ -21,6 +22,10 @@
 <%@passages.each do |passage| %>
 <li>
 <%=link_to passage.title, passage_path(passage.id)%>
+<%if current_user.username==name%>
+<%=link_to "编辑", edit_passage_path(passage.id)%>
+<%=link_to "删除", passage_path(passage.id), :method=>:delete%>
+<%end%>
 </li>
 <%end%>
 </div>

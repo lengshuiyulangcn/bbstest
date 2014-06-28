@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -63,7 +63,7 @@ function insertText(obj,str) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">掲示板</a>
+          <a class="brand" href="/">FFF团基地</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
               
@@ -75,11 +75,11 @@ function insertText(obj,str) {
               <%end%>
               <%end%>
               <% if user_signed_in? %>
-                  <li><%= link_to 'ログアウト', destroy_user_session_path %></li>
-                  <li><%= link_to "パスワード変更", edit_user_password_path  %></li>
+                  <li><%= link_to '退出登录', destroy_user_session_path %></li>
+                  <li><%= link_to "更换密码", edit_user_password_path  %></li>
               <% else %>
-                <li><%= link_to "RenRenでログイン", user_omniauth_authorize_path(:renren) %></li>
-                <li><%= link_to "ユーザ登録", new_user_registration_path %></li>
+                <!-- <li><%= link_to "RenRenでログイン", user_omniauth_authorize_path(:renren) %></li> -->
+                <li><%= link_to "用户注册", new_user_registration_path %></li>
               
               <% end %>
             </ul>

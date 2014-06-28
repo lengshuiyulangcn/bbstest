@@ -5,6 +5,8 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem "rails_admin", "~>0.4.1"
+gem "figaro"
+gem 'rails_kindeditor'
 gem "rbbcode"
 gem 'sqlite3'
 gem "carrierwave"

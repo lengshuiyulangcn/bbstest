@@ -1,17 +1,20 @@
 <%@comments.each do |comment| %>
-<hr color="#ff99cc" style="filter:alpha(opacity=100,finishopacity=0,style=1);">
-<div class="box">
-<%userinfo2=Userinfo.find(:first, :conditions=>{:user_id=>comment.user_id})%>
+<div id="container">
+<%userinfo2=comment.get_author%>
+<div id="leftContent">
  <%=image_tag userinfo2.image%>
-<%=link_to comment.author,edit_userinfo_path(userinfo2.id) %>
-(<%=userinfo2.pr%>)
-<p>
-<p><%=raw RbbCode.new.convert(comment.content) %></p>
-<%=comment.updated_at.strftime('%Y/%m/%d %H:%M')%>
-</p>
+<div class="username"><%=link_to comment.author,edit_userinfo_path(userinfo2.id) %></div>
 </div>
+<div id="rightContent">
+	(<%=userinfo2.pr%>)
+	<%=comment.updated_at.strftime('%Y/%m/%d %H:%M')%>
+	<div id="text">
+<%=raw RbbCode.new.convert(comment.content) %>
+</div>
+</div>
+</div>
+<br>
 <% end %>
 <div >
-  <hr color="#ff99cc" style="filter:alpha(opacity=100,finishopacity=0,style=1);">
 </div>
 <%=will_paginate @comments%>

@@ -8,11 +8,12 @@ Bbstest::Application.routes.draw do
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-
+ 
+  resources :categories
   resources :passages
   resources :comments
   resources :userinfos
-  root :to => 'passages#index'
+  root :to => 'categories#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
