@@ -1,3 +1,4 @@
+#encoding:utf-8
 class CommentsController < ApplicationController
 	def new
 		#@passage=Passage.find(params[:para])
@@ -8,21 +9,30 @@ class CommentsController < ApplicationController
 		@comment=Comment.new
 		@comment.content=params[:comment][:content]
 		@comment.passage_id=params[:comment][:passage_id]
+		count=Passage.find(params[:comment][:passage_id]).comments.size
+		if count
+		@comment.flour_id=count+1
+		else
+		@comment.flour_id=1
+		end
 		@comment.author=current_user.username
 		@comment.user_id=current_user.id		
 		if @comment.save
-			@passage=Passage.find(@comment.passage_id)
 			redirect_to passage_path(@comment.passage_id)
 		else
-			@passage=Passage.find(params[:comment][:passage_id])
-			render  :template =>"passages/show"
+			flash[:error]="更新失败啦"
+			redirect_to passage_path(@comment.passage_id)
 		end
 	end
 	def show
 	end
 	def edit
 		@comment=Comment.find(params[:id])
-	end
+		 if current_user.username!=@comment.author
+			flash[:error]="哎呀不能编辑别人的东西啦"
+			redirect_to passage_path(@comment.passage_id)
+		end
+		end
 	def update
 		@comment=Comment.find(params[:id])
 		@comment.content=params[:comment][:content]

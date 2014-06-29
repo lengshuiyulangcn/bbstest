@@ -59,7 +59,7 @@ class PassagesController < ApplicationController
 		if current_user==@passage.user
 		Passage.delete(@passage)
 		# @passages=Passage.all
-		redirect_to root
+		redirect_to edit_userinfo_path(current_user.userinfo.id)
 		else
 			flash[:notice]="not permitted"
 			redirect_to passages_path

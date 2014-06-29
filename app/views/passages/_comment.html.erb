@@ -6,10 +6,11 @@
 <div class="username"><%=link_to comment.author,edit_userinfo_path(userinfo2.id) %></div>
 </div>
 <div id="rightContent">
-	(<%=userinfo2.pr%>)
+	<%=comment.flour_id%>楼(<%=userinfo2.pr%>)
 	<%=comment.updated_at.strftime('%Y/%m/%d %H:%M')%>
+	<%=link_to "编辑", edit_comment_path(comment.id)%>
 	<div id="text">
-<%=raw RbbCode.new.convert(comment.content) %>
+<%=raw comment.content %>
 </div>
 </div>
 </div>
