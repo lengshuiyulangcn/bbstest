@@ -1,5 +1,5 @@
 <%@comments.each do |comment| %>
-<div id="container">
+<div id="container"> 
 <%userinfo2=comment.get_author%>
 <div id="leftContent">
  <%=image_tag userinfo2.image%>
@@ -8,7 +8,7 @@
 <div id="rightContent">
 	<%=comment.flour_id%>楼(<%=userinfo2.pr%>)
 	<%=comment.updated_at.strftime('%Y/%m/%d %H:%M')%>
-	<%=link_to "编辑", edit_comment_path(comment.id)%>
+	<%=link_to "查看原帖", passage_path(comment.passage.id)%>
 	<div id="text">
 <%=raw comment.content %>
 </div>
@@ -17,7 +17,4 @@
 <br>
 <% end %>
 <div >
-</div>
-<div class="flickr_pagination">
-<%=will_paginate @comments%>
 </div>

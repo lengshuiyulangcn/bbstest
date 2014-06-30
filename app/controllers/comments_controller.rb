@@ -18,9 +18,10 @@ class CommentsController < ApplicationController
 		@comment.author=current_user.username
 		@comment.user_id=current_user.id		
 		if @comment.save
+			flash[:notice]="回帖成功"
 			redirect_to passage_path(@comment.passage_id)
 		else
-			flash[:error]="更新失败啦"
+			flash[:error]="回帖失败了呢，可能是您太短了"
 			redirect_to passage_path(@comment.passage_id)
 		end
 	end

@@ -13,6 +13,7 @@ Bbstest::Application.routes.draw do
   resources :passages
   resources :comments
   resources :userinfos
+  resources :notifications
   root :to => 'categories#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

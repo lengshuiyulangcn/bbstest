@@ -35,16 +35,18 @@ class PassagesController < ApplicationController
 		  if @passage.save
                         # @passages=Passage.all
                   
+			flash[:notice]= "创建成功"
                         redirect_to category_path(params[:passage][:id]), :notice=>"new passage created"
                 else
-                        redirect_to category_path(params[:passage][:id]), :error=>"your input not correct"
+			flash[:error]= "创建失败了，你的帖子短于6cm呢"
+                        redirect_to category_path(params[:passage][:id])
                 end
 	end
 	def edit
 		@passage=Passage.find(params[:id])
-		if current_user!=@passage.user
-			flash[:notice]="not permitted"
-			redirect_to passages_path
+		if current_user!=@passage.user 
+			flash[:error]= "不是你的帖子不能乱编辑啦，知道你为什么没妹子么"
+			redirect_to passage_path(params[:id])
 		end
 	end
 	def update
@@ -61,8 +63,8 @@ class PassagesController < ApplicationController
 		# @passages=Passage.all
 		redirect_to edit_userinfo_path(current_user.userinfo.id)
 		else
-			flash[:notice]="not permitted"
-			redirect_to passages_path
+			flash[:error]= "阿啦，不是你的帖子不能删除啦！"
+			redirect_to passages_path 
 		end
 		
 	end

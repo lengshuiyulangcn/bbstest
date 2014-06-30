@@ -1,8 +1,11 @@
+<div class="passage_box">
 <h1><%=@cat.name%>
   <%if current_user.userinfo!=nil%>
 	<%=image_tag current_user.userinfo.image, :alt=>"icon"%>
 <%end%>
 </h1>
 <%=render :partial=>"table"%>
-<%= will_paginate @passages %> 
+
+<div class="flickr_pagination"><%= will_paginate @passages %></div> 
 <%=render :partial=>"input"%>
+</div>

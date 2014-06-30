@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
         self.userinfo.save
       end
     end
-	has_many :passages
+  has_many :notifications
+  has_many :passages
   has_one :userinfo
   has_many :comments
 end

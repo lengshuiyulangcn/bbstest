@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container passage_box">
 <p><b>用户名:</b>
 <%name=User.find(@userinfo.user_id).username%>
 <%=name%>
@@ -14,7 +14,7 @@
 	<%=f.label "格言"%>
 <%=f.text_field :pr%></br>
 <%= f.file_field :image %> 
-<%=f.submit "确认变更",:class => 'btn btn-mini'%>
+<%=f.submit "确认变更",:class => 'btn btn-primary'%>
 <%end%>
 </p>
 <%end%>

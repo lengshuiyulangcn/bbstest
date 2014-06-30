@@ -2,7 +2,7 @@
 	<tr>
 		<td>标题</td>
 		<td>作者</td>
-		<td>点击</td>
+		<td>评论</td>
 		<td>最后评论</td>
 		<td>发布时间</td>
 	</tr>
@@ -17,7 +17,7 @@
 <%=link_to p.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>p.user_id}).id) %>
  </td>
  <td>
-<%= p.comments.size %>/<%= p.clicked%>
+<%= p.comments.size %>
 </td>
 <td>
 <% if !p.comments.empty? %>

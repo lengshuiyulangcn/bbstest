@@ -1,0 +1,6 @@
+<div class="row-fluid passage_box">
+ <div class="title">最新回复：</div>
+  <% @comments=@notifications.map{|notification| notification.comment} %>
+    <%= render :partial=>"comment" %>
+</div>
+

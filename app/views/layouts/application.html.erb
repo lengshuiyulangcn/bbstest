@@ -51,16 +51,19 @@
             <ul class="nav">
               
               <%if current_user!=nil%>
-              <%if current_user.userinfo!=nil%>
+		<%userinfo=current_user.userinfo%>
+              <%if userinfo!=nil%>
             
               
-              <li><%= link_to current_user.username, edit_userinfo_path(current_user.userinfo.id)  %></li>
+              <li><%= link_to current_user.username, edit_userinfo_path(userinfo.id)  %></li>
               <%end%>
               <%end%>
               <% if user_signed_in? %>
                   <li><%= link_to '退出登录', destroy_user_session_path %></li>
                   <li><%= link_to "更换密码", edit_user_password_path  %></li>
-              <% else %>
+		  <li><%=image_tag(userinfo.image, :size=>"32x32")%></li>
+		  <li><%= link_to "#{@unread_count}", notifications_path, :class=>"badge" %></li>
+		 <% else %>
                 <!-- <li><%= link_to "RenRenでログイン", user_omniauth_authorize_path(:renren) %></li> -->
                 <li><%= link_to "用户注册", new_user_registration_path %></li>
               
@@ -73,7 +76,8 @@
 
           
         <div class="span8">
-          <%= yield %>
+      <%= bootstrap_flash %>  
+	 <%= yield %>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
         </div>
     </div> <!-- /container -->

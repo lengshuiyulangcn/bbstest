@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140629101300) do
+ActiveRecord::Schema.define(:version => 20140630043447) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -31,14 +31,22 @@ ActiveRecord::Schema.define(:version => 20140629101300) do
     t.integer  "flour_id"
   end
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "comment_id"
+    t.integer  "user_id"
+    t.boolean  "unread",     :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
   create_table "passages", :force => true do |t|
     t.string   "title"
     t.string   "content"
     t.string   "author"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "user_id"
-    t.integer  "clicked"
+    t.integer  "clicked",     :default => 0
     t.integer  "category_id"
   end
 
