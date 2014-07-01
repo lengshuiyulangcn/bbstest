@@ -18,7 +18,13 @@ class Passage < ActiveRecord::Base
   def get_author
     Userinfo.find(:first, :conditions=>{:user_id=>self.user_id})
   end
-  private
+  def admin_list
+    list=[]
+    list << self.user
+    list+=self.category.get_admins
+  end
+ 
+ private
   def add_money
     self.user.userinfo.money+=5
     self.user.userinfo.save

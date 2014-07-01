@@ -1,5 +1,5 @@
 Bbstest::Application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  #mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
@@ -8,7 +8,7 @@ Bbstest::Application.routes.draw do
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
- 
+  resources :admins 
   resources :categories
   resources :passages
   resources :comments

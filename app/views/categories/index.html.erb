@@ -8,6 +8,18 @@
 </div>
 <div id="rightContent">
 <%=cat.description%>
+<div class="cat_owner">
+版主：
+<% admins=Admin.find(:all, :conditions => { :category_id => cat.id }) %>
+<%if admins!=[]%>
+<%admins.each do |admin|%>
+<%user=User.find(admin.user_id)%>
+<%=link_to user.username, edit_userinfo_path(user.get_userinfo.id)%>
+<%end%>
+<%else%>
+暂缺
+<%end%>
+</div>
 <div id="text">
 最新发帖：
 <%cat.recent_passage.each do |passage|%>
@@ -20,7 +32,7 @@
 <%end%>
 </div>
 <%if current_user.username==ENV["admin"]%>
-<button data-toggle="modal" href="#myModal">创建新分区</button>
+<button data-toggle="modal" href="#myModal" class="btn">创建新分区</button>
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <h3 id="myModalLabel">创建新的分区</h3>
@@ -33,7 +45,7 @@
 </div>
 <div class="content">
 描述：
-<%=f.text_area :description%>
+<%=f.kindeditor :description%>
 </div>
 <div class="url">
 设置新图像：
@@ -46,4 +58,5 @@
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div> 
+<%=link_to "设置管理员", admins_path, :class=>"btn btn-primary"%>
 <%end%>

@@ -24,12 +24,15 @@ class User < ActiveRecord::Base
       if self.userinfo==nil
         self.userinfo=Userinfo.new
         self.userinfo.user_id=self.id
-        self.userinfo.pr="prなし"
+        self.userinfo.pr="我的长度只有6cm"
         self.userinfo.money=0
         # if self.userinfo.image==""
         # end
         self.userinfo.save
       end
+    end
+    def get_userinfo
+        Userinfo.find(:first,:conditions=>{:user_id=>self.id})
     end
   has_many :notifications
   has_many :passages

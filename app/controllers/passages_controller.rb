@@ -44,7 +44,7 @@ class PassagesController < ApplicationController
 	end
 	def edit
 		@passage=Passage.find(params[:id])
-		if current_user!=@passage.user 
+		unless @passage.admin_list.include?(current_user)
 			flash[:error]= "不是你的帖子不能乱编辑啦，知道你为什么没妹子么"
 			redirect_to passage_path(params[:id])
 		end
@@ -53,12 +53,13 @@ class PassagesController < ApplicationController
 		@passage=Passage.find(params[:id])
 		@passage.title=params[:passage][:title]
 		@passage.content=params[:passage][:content]
+		@passage.content+="<div class='footer'>最后由#{current_user.username}于#{format_time(Time.now)}进行编辑</div>"
 		@passage.save
 		redirect_to passage_path(params[:id])
 	end
 	def destroy
 		@passage=Passage.find(params[:id])
-		if current_user==@passage.user
+		unless @passage.admin_list.include?(current_user)
 		Passage.delete(@passage)
 		# @passages=Passage.all
 		redirect_to edit_userinfo_path(current_user.userinfo.id)

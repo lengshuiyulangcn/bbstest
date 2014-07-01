@@ -1,6 +1,7 @@
 <%userinfo1=@passage.get_author%>
 <div class="passage_box">
  <div class="title"><%= @passage.title %></div>
+<div class="content_box">
 <div id="container">
     <div id="leftContent">
       <%=image_tag userinfo1.image%>
@@ -18,7 +19,9 @@
 <br>
 </div>
 </div>
+</div>
 <br>
+<div class="content_box">
 <div id="comment_table"><%=render :partial=>"comment"%></div>
 <div class="container">
   <div class="panel panel-primary">
@@ -29,6 +32,7 @@
   <%=f.hidden_field :passage_id , :value=>@passage.id %>
   <p><%= f.submit "提出",  :class => 'btn btn-primary' %></p>
 <% end %>
+</div>
 </div>
 </div>
 </div>

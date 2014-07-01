@@ -29,14 +29,15 @@ class CommentsController < ApplicationController
 	end
 	def edit
 		@comment=Comment.find(params[:id])
-		 if current_user.username!=@comment.author
+		 unless @comment.admin_list.include?(current_user)
 			flash[:error]="哎呀不能编辑别人的东西啦"
 			redirect_to passage_path(@comment.passage_id)
 		end
-		end
+	end
 	def update
 		@comment=Comment.find(params[:id])
 		@comment.content=params[:comment][:content]
+		@comment.content+="<div class='footer'>最后由#{current_user.username}于#{format_time(Time.now)}进行编辑</div>"
 		@comment.save
 		redirect_to passage_path(@comment.passage_id)
 	end

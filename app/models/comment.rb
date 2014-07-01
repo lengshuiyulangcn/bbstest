@@ -11,6 +11,12 @@ after_create :add_money, :send_notifications
 def get_author
     Userinfo.find(:first, :conditions=>{:user_id=>self.user_id})
   end
+def admin_list
+list=[]
+list << self.user
+list+=self.passage.category.get_admins
+end
+
 private
 def here_users
     all = []

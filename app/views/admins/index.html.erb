@@ -1,0 +1,26 @@
+<div class="passage_box">
+<tr>
+<td>分区号</td>
+<td>分区名称</td>
+<td>管理员</td>
+<td>操作</td>
+</tr>
+<%@admins.each do |admin|%>
+<table>
+<tr>
+<td><%=admin.category_id%></td>
+<td><%=Category.find(admin.category_id).name%></td>
+<td><%=User.find(admin.user_id).username%></td>
+<td><%=link_to "删除", admin_path(admin.id), :method=>:delete, :conform=>"确定要删除咩"%></td>
+</tr>
+</table>
+<%end%>
+添加新管理员：
+<%=form_for @admin do |f|%>
+<%=f.label "分区名称"%>
+<%=f.text_field :category_id%>
+<%=f.label "用户名"%>
+<%=f.text_field :user_id%>
+<%=f.submit "创建管理员"%>
+<%end%>
+</div>
