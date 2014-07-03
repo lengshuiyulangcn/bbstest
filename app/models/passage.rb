@@ -16,7 +16,7 @@ class Passage < ActiveRecord::Base
 	self.save
   end
   def get_author
-    Userinfo.find(:first, :conditions=>{:user_id=>self.user_id})
+    Userinfo.where(:user_id=>self.user_id).first
   end
   def admin_list
     list=[]

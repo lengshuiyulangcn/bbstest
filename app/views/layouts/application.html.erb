@@ -57,7 +57,7 @@
               <%end%>
               <%end%>
               <% if user_signed_in? %>
-                  <li><%= link_to '退出登录', destroy_user_session_path %></li>
+                  <li><%= link_to '退出登录', destroy_user_session_path, :method=>"delete" %></li>
                   <li><%= link_to "更换密码", edit_user_password_path  %></li>
 		  <li><%=image_tag(userinfo.image, :size=>"32x32")%></li>
 		  <li><%= link_to "#{@unread_count}", notifications_path, :class=>"badge" %></li>
@@ -74,7 +74,7 @@
 
           
         <div class="span8">
-      <%= bootstrap_flash %>  
+      <%=flash_messages %>  
 	 <%= yield %>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
         </div>

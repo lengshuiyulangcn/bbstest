@@ -6,12 +6,10 @@ class CategoriesController < ApplicationController
 		@new_cat=Category.new
 	end
 	def create
+		#modify to rails 4.xx
+#permit(:description, :thumb_image, :name)
 		if current_user.username==ENV["admin"]
-		@cat=Category.new
-		@cat.name=params[:category][:name]
-		@cat.description=params[:category][:description]
-		@cat.thumb_image=params[:category][:thumb_image]
-		if @cat.save
+		if Category.create(category_params)
 		redirect_to root_path
 		else
 		flash[:error]="创建失败"
@@ -23,9 +21,9 @@ class CategoriesController < ApplicationController
 		end
 	end
 	def show
-		@cat=Category.find(params[:id])
+		@cat=Category.find(params.permit(:id)[:id])
 		@user=User.find(current_user.id)
-		@passages= Passage.where(category_id: params[:id]).paginate(:page => params[:page], :order=>'created_at DESC', :per_page => 10)	
+		@passages= Passage.where(category_id: params.permit(:id)[:id]).paginate(:page => params[:page], :per_page => 10).order('created_at DESC')	
 		#@num=@passages.size/10
 		#pagenow=params[:page].to_i-1
 		#puts pagenow
@@ -35,5 +33,9 @@ class CategoriesController < ApplicationController
 	#		@passages=@passages[0..10]
 	#	end
 		@passage=Passage.new
+	end
+	private
+	def category_params
+	    params.require(:category).permit(:category_id, :name, :description, :thumb_image)
 	end
 end

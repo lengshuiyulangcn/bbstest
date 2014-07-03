@@ -9,7 +9,7 @@ class Comment < ActiveRecord::Base
 after_create :add_money, :send_notifications
 
 def get_author
-    Userinfo.find(:first, :conditions=>{:user_id=>self.user_id})
+    Userinfo.where(:user_id=>self.user_id).first
   end
 def admin_list
 list=[]

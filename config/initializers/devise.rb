@@ -4,7 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  config.secret_key = 'b95b1730dd0439e5b8838dce81b96b5a5a6ad9ed31e91ad633d7c28217dbe63116a8d23a2d3765890799561596d9d4c995a1e2e6f881f44d136a6cf886c47e30'
+  # config.secret_key = '0caec9ac1ef7e8694c5719071f3c3219d8be31356700ad149459dddd15ca24f0f10c3cfa7d00f2d1ce997f5000bfaf04275ad013d5a996e66dadaf29f7b1c2d0'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -29,7 +29,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  config.authentication_keys = [ :username ]
+  # config.authentication_keys = [ :email ]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -76,7 +76,7 @@ Devise.setup do |config|
   # particular strategies by setting this option.
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
-  # passing :skip => :sessions to `devise_for` in your config/routes.rb
+  # passing skip: :sessions to `devise_for` in your config/routes.rb
   config.skip_session_storage = [:http_auth]
 
   # By default, Devise cleans up the CSRF token on authentication to
@@ -91,18 +91,20 @@ Devise.setup do |config|
   #
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
-  # a value less than 10 in other environments.
+  # a value less than 10 in other environments. Note that, for bcrypt (the default
+  # encryptor), the cost increases exponentially with the number of stretches (e.g.
+  # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'ab7e3c7ca35cb99a0c3b0540e050c04815db232c60344c91b07c58bdadaec00a5eb1c5dcc996b77968a3151e7b52d89fe663b5ec7d7f952b427c77ce0df5431b'
+  # config.pepper = '4f9bd82451a22eb54bf13adc43bca974820da3ea251c4e875af5a0e1e2a64c679e90e4a211963fdc6546800aab485484f4a04f3e4dcb9e3e27ece44efffd2f0a'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
-  # confirming his account. For instance, if set to 2.days, the user will be
-  # able to access the website for two days without confirming his account,
+  # confirming their account. For instance, if set to 2.days, the user will be
+  # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
-  # the user cannot access the website without confirming his account.
+  # the user cannot access the website without confirming their account.
   # config.allow_unconfirmed_access_for = 2.days
 
   # A period that the user is allowed to confirm their account before their
@@ -115,8 +117,8 @@ Devise.setup do |config|
 
   # If true, requires any email changes to be confirmed (exactly the same way as
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
-  # db field (see migrations). Until confirmed new email is stored in
-  # unconfirmed email column, and copied to email column on successful confirmation.
+  # db field (see migrations). Until confirmed, new email is stored in
+  # unconfirmed_email column, and copied to email column on successful confirmation.
   config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
@@ -130,11 +132,11 @@ Devise.setup do |config|
   # config.extend_remember_period = false
 
   # Options to be passed to the created cookie. For instance, you can set
-  # :secure => true in order to force SSL only cookies.
+  # secure: true in order to force SSL only cookies.
   # config.rememberable_options = {}
 
   # ==> Configuration for :validatable
-  # Range for password length. Default is 8..128.
+  # Range for password length.
   config.password_length = 8..128
 
   # Email regex used to validate email formats. It simply asserts that
@@ -223,11 +225,11 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
-config.omniauth :renren, '268b4a593597451d8db6a60476c56c51', '1c5530bbf7494233ad7aa133da255575'
+
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -235,7 +237,7 @@ config.omniauth :renren, '268b4a593597451d8db6a60476c56c51', '1c5530bbf7494233ad
   #
   # config.warden do |manager|
   #   manager.intercept_401 = false
-  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
+  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
 
   # ==> Mountable engine configurations
@@ -251,4 +253,6 @@ config.omniauth :renren, '268b4a593597451d8db6a60476c56c51', '1c5530bbf7494233ad
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+config.sign_out_via = :delete
+config.omniauth :renren, '268b4a593597451d8db6a60476c56c51', '1c5530bbf7494233ad7aa133da255575'
 end

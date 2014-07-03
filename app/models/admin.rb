@@ -4,7 +4,7 @@ class Admin < ActiveRecord::Base
   validates :user_id, :presence => true
 
 def get_user
-    User.find(:first, :conditions=>{:id=>self.user_id})
+    User.where(:id=>self.user_id).first
 end
 
 end

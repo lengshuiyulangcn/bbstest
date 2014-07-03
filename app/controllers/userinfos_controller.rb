@@ -1,7 +1,7 @@
 class UserinfosController < ApplicationController
 	
 	def update
-		@userinfo=Userinfo.find(params[:id])
+		@userinfo=Userinfo.find(params.permit(:id)[:id])
 		@userinfo.image=params[:userinfo][:image]
 		@userinfo.pr=params[:userinfo][:pr]
 		@userinfo.save
@@ -9,7 +9,7 @@ class UserinfosController < ApplicationController
 		#@userinfo=Userinfo.new
 	end
 	def edit
-		@userinfo=Userinfo.find(params[:id])
-		@passages=Passage.find(:all,:conditions=>{:user_id=>@userinfo.user_id})
+		@userinfo=Userinfo.find(params.permit(:id)[:id])
+		@passages=Passage.where(:user_id=>@userinfo.user_id)
 	end
 end

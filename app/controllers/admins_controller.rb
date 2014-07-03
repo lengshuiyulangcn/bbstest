@@ -4,7 +4,7 @@ class AdminsController < ApplicationController
 	@admin=Admin.new
     end
     def destroy
-        if Admin.destroy(params[:id])
+        if Admin.destroy(params.permit(:id))
 	flash[:notice]="删除成功"
 	redirect_to admins_path
 	else
@@ -13,8 +13,9 @@ class AdminsController < ApplicationController
 	end
     end
     def create
-	category=Category.where(name: params[:admin][:category_id]).first
-	user=User.where(username: params[:admin][:user_id]).first
+	fake_params=admin_params
+	category=Category.where(name: fake_params[:category_id]).first
+	user=User.where(username: fake_params[:user_id]).first
 	if category==nil or user==nil
 	flash[:error]="不存在的用户或者分区号"
 	redirect_to admins_path
@@ -27,4 +28,8 @@ class AdminsController < ApplicationController
 	end
 	redirect_to admins_path
     end
+	private
+	def admin_params
+	params.require(:admin).permit(:user_id, :category_id)
+	end
 end

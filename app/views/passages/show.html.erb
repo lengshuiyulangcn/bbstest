@@ -5,7 +5,7 @@
 <div id="container">
     <div id="leftContent">
       <%=image_tag userinfo1.image%>
-      <p><%=link_to @passage.author, edit_userinfo_path(Userinfo.find(:first,:conditions=>{:user_id=>@passage.user_id}).id)%></p>
+      <p><%=link_to @passage.author, edit_userinfo_path(Userinfo.where(:user_id=>@passage.user_id).first.id)%></p>
     <div id="foot">
 </div>
     </div>
@@ -28,7 +28,7 @@
     <div class="panel-heading"><h2 class="label label-primary"><%="发表评论"%></h2></div>
     <div class="panel-body">
 <%= form_for @comment do |f| %>
-  <%=f.kindeditor  :content ,:width => 600%>
+  <%=f.kindeditor  :content , :width=>400, :simple_mode=>true%>
   <%=f.hidden_field :passage_id , :value=>@passage.id %>
   <p><%= f.submit "提出",  :class => 'btn btn-primary' %></p>
 <% end %>

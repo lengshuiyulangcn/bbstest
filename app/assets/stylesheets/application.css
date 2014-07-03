@@ -11,7 +11,8 @@
  *= require_self
  *= require_tree .
  */
-*= require jquery.ui.all
+
+ *= require jquery.ui.all
 .badge{
 color: #aaa;
 font-weight: normal;

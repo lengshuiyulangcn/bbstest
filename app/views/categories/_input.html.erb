@@ -4,7 +4,7 @@
   <%= f.hidden_field :id, :value=>@cat.id%>
   <br>
   <%= f.label "内容" ,:class=> "label label-info"%><div id="content_error"></div>
- <%=f.kindeditor :content, :simple_mode => true, owner_id: @passage.id%>
+ <%=f.kindeditor :content, :simple_mode => true, :width=>400, owner_id: @passage.id%>
   <br>
   <%= f.submit "发帖"%>
 <% end %>

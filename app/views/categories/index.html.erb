@@ -10,7 +10,7 @@
 <%=cat.description%>
 <div class="cat_owner">
 版主：
-<% admins=Admin.find(:all, :conditions => { :category_id => cat.id }) %>
+<% admins=Admin.where(:category_id => cat.id) %>
 <%if admins!=[]%>
 <%admins.each do |admin|%>
 <%user=User.find(admin.user_id)%>

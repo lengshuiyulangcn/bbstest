@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
       end
     end
     def get_userinfo
-        Userinfo.find(:first,:conditions=>{:user_id=>self.id})
+        Userinfo.where(:user_id=>self.id).first
     end
   has_many :notifications
   has_many :passages

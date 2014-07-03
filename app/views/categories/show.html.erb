@@ -1,7 +1,7 @@
 <div class="passage_box">
 <div class="content_box">
 <h1><%=@cat.name%></h1>
-<div class="image"><%=ENV["image1"]%></div>
+<div class="image"><%=image_tag ENV["image#{@cat.id}"]%></div>
 <%=render :partial=>"table"%>
 
 <div class="flickr_pagination"><%= will_paginate @passages %></div> 

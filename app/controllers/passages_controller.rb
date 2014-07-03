@@ -15,9 +15,9 @@ class PassagesController < ApplicationController
 		@passage=Passage.new
 	end
 	def show
-		@passage=Passage.find(params[:id])
+		@passage=Passage.find(params.permit(:id)[:id])
 		@passage.click!
-		@comments=Comment.where(passage_id: params[:id]).paginate(:page => params[:page], :order=>'created_at DESC', :per_page => 5)	
+		@comments=Comment.where(passage_id: params.permit(:id)[:id]).paginate(:page => params[:page], :per_page => 5).order("created_at DESC")	
 		@comment=Comment.new
 	end
 	def new
@@ -25,10 +25,11 @@ class PassagesController < ApplicationController
 	end
 	def create
 		author=current_user.username
+		fake_params=passage_params
 		@passage=Passage.new
-		@passage.title=params[:passage][:title]
-		@passage.content=params[:passage][:content]
-		@passage.category_id=params[:passage][:id]
+		@passage.title=fake_params[:title]
+		@passage.content=fake_params[:content]
+		@passage.category_id=fake_params[:id]
 		@passage.author=author
 		@passage.user_id=current_user.id
 		
@@ -36,38 +37,45 @@ class PassagesController < ApplicationController
                         # @passages=Passage.all
                   
 			flash[:notice]= "创建成功"
-                        redirect_to category_path(params[:passage][:id]), :notice=>"new passage created"
+                        redirect_to category_path(params[:passage][:id])
                 else
 			flash[:error]= "创建失败了，你的帖子短于6cm呢"
                         redirect_to category_path(params[:passage][:id])
                 end
 	end
 	def edit
-		@passage=Passage.find(params[:id])
+		@passage=Passage.find(params.permit(:id)[:id])
 		unless @passage.admin_list.include?(current_user)
 			flash[:error]= "不是你的帖子不能乱编辑啦，知道你为什么没妹子么"
-			redirect_to passage_path(params[:id])
+			redirect_to passage_path(params.permit(:id)[:id])
 		end
 	end
 	def update
-		@passage=Passage.find(params[:id])
-		@passage.title=params[:passage][:title]
-		@passage.content=params[:passage][:content]
+		fake_params=passage_params
+		@passage=Passage.find(params.permit(:id)[:id])
+		@passage.title=fake_params[:title]
+		@passage.content=fake_params[:content]
 		@passage.content+="<div class='footer'>最后由#{current_user.username}于#{format_time(Time.now)}进行编辑</div>"
 		@passage.save
-		redirect_to passage_path(params[:id])
+		redirect_to passage_path(params.permit(:id)[:id])
 	end
 	def destroy
-		@passage=Passage.find(params[:id])
-		unless @passage.admin_list.include?(current_user)
+		fake_params=params.permit(:id)
+		@passage=Passage.find(fake_params[:id])
+		if @passage.admin_list.include?(current_user)
 		Passage.delete(@passage)
 		# @passages=Passage.all
+		flash[:notice]= "删除成功啦"
 		redirect_to edit_userinfo_path(current_user.userinfo.id)
 		else
-			flash[:error]= "阿啦，不是你的帖子不能删除啦！"
-			redirect_to passages_path 
+		flash[:error]= "阿啦，不是你的帖子不能删除啦！"
+		redirect_to edit_userinfo_path(current_user.userinfo.id)
 		end
 		
+	end
+	private
+	def passage_params
+	 params.require(:passage).permit(:title, :content, :id)
 	end
 
 end
